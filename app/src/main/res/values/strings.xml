@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PaymentApp</string>
+    <string name="payment_list">Payment List</string>
+    <string name="euro_currency">\€%s</string>
+    <string name="Not_Connect">Not Connect</string>
+    <string name="Try_Again">Try Again</string>
+</resources>
