@@ -5,7 +5,7 @@ import com.bunq.paymentapp.ApiData.BunqApiContextCreation
 
 /** instance of the application**/
 
-class NewPaymentApp :Application() {
+class NewPaymentApp : Application() {
     override fun onCreate() {
         super.onCreate()
         BunqApiContextCreation().setSharedPreferenceApiConfigure(this)

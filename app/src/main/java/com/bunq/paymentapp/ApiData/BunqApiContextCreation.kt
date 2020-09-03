@@ -15,7 +15,6 @@ import com.bunq.sdk.exception.BunqException
 import com.bunq.sdk.exception.UncaughtExceptionError
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.IllegalStateException
 
 /** Class creates the API Context here and also checks the user context
  * The creation is as per defined on the github of bunq sdk - https://github.com/bunq/sdk_java
@@ -46,12 +45,14 @@ class BunqApiContextCreation {
     //now let set the ApiContext here
 
     private val apiContext by lazy {
-        fun CreateNewContext(): ApiContext{
-            return ApiContext.create(ApiEnvironmentType.SANDBOX,
-                Constants.API_KEY,"Android-Device")
+        fun CreateNewContext(): ApiContext {
+            return ApiContext.create(
+                ApiEnvironmentType.SANDBOX,
+                Constants.API_KEY, "Android-Device"
+            )
         }
-        if (::sharedPreferences.isInitialized){
-            sharedPreferences.Jsondata?.let {it ->
+        if (::sharedPreferences.isInitialized) {
+            sharedPreferences.Jsondata?.let { it ->
                 ApiContext.fromJson(it)
             } ?: CreateNewContext().also {
                 sharedPreferences.Jsondata = it.toJson()
@@ -62,22 +63,23 @@ class BunqApiContextCreation {
     private val _networkState = MutableLiveData<NetworkState<Unit>>()
     val networkState: LiveData<NetworkState<Unit>> = _networkState
 
-    fun BunqContextLoading(){
+    fun BunqContextLoading() {
         if (networkState.value is NetworkState.Loading) return
         if (hasUserContext) throw IllegalStateException("Method not called")
 
         GlobalScope.launch {
             try {
                 BunqContext.loadApiContext(apiContext)
-            } catch (e: UncaughtExceptionError){
-                Log.e(Constants.TAG,"Error Occured")
+            } catch (e: UncaughtExceptionError) {
+                Log.e(Constants.TAG, "Error Occured")
                 _networkState.postValue(NetworkState.Failure())
             }
             _networkState.postValue(NetworkState.Success())
         }
 
     }
+
     private var SharedPreferences.Jsondata: String?
         get() = getString(Constants.API_CONTEXT_KEY, null)
-        set(value) = edit().putString(Constants.API_CONTEXT_KEY,value).apply()
+        set(value) = edit().putString(Constants.API_CONTEXT_KEY, value).apply()
 }

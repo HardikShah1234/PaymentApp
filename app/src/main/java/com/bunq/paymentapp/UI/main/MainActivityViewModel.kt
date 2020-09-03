@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.bunq.paymentapp.ApiData.BunqApiContextCreation
 import com.bunq.paymentapp.BunqApiContextCreationViewModel
-import com.bunq.paymentapp.repository.PaymentRepository
-import com.bunq.paymentapp.UI.payment.contains
 import com.bunq.paymentapp.Constants
+import com.bunq.paymentapp.UI.payment.contains
 import com.bunq.paymentapp.repository.Event
 import com.bunq.paymentapp.repository.NetworkState
+import com.bunq.paymentapp.repository.PaymentRepository
 import com.bunq.sdk.context.BunqContext
 import com.bunq.sdk.exception.BunqException
 import com.bunq.sdk.exception.UncaughtExceptionError

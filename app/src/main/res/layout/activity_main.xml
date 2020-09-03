@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main_root_view"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.main.MainActivity">
@@ -15,7 +15,7 @@
 
         <include
             android:id="@+id/search"
-            layout="@layout/custom_search_view"/>
+            layout="@layout/custom_search_view" />
 
     </LinearLayout>
 
@@ -23,8 +23,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@+id/ll_Search">
+        android:layout_below="@+id/ll_Search"
+        android:orientation="vertical">
 
         <com.leo.simplearcloader.SimpleArcLoader
             android:id="@+id/loader"
@@ -48,7 +48,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/payment_list_layout"/>
+            tools:listitem="@layout/payment_list_layout" />
 
     </LinearLayout>
 

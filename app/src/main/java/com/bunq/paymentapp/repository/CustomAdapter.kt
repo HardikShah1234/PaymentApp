@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.payment_list_layout.view.*
 class CustomAdapter(
     private val onItemClickListener: (Int) -> Unit,
     private val onAdapterIsEmptyListener: (Boolean) -> Unit
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() , Filterable{
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(), Filterable {
 
     private val adapterCallback = object : SortedListAdapterCallback<PaymentSearchList>(this) {
         override fun areItemsTheSame(
@@ -41,8 +41,9 @@ class CustomAdapter(
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tv_price : TextView
-        var tv_alias : TextView
+        var tv_price: TextView
+        var tv_alias: TextView
+
         init {
             tv_price = itemView.tv_price
             tv_alias = itemView.tv_alias
@@ -51,7 +52,8 @@ class CustomAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var itemView = LayoutInflater.from(parent.context).inflate(R.layout.payment_list_layout, parent,false)
+        var itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.payment_list_layout, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -68,22 +70,23 @@ class CustomAdapter(
         holder.tv_alias.text = payment.counterpartyAlias.displayName
     }
 
-    private val sortlist : SortedList<PaymentSearchList> = SortedList(PaymentSearchList::class.java, adapterCallback)
+    private val sortlist: SortedList<PaymentSearchList> =
+        SortedList(PaymentSearchList::class.java, adapterCallback)
 
     fun clearAndReplace(newData: List<PaymentSearchList>) {
         sortlist.beginBatchedUpdates()
 
-        for (i in sortlist.size() - 1 downTo 0){
-            val item : PaymentSearchList = sortlist[i]
+        for (i in sortlist.size() - 1 downTo 0) {
+            val item: PaymentSearchList = sortlist[i]
 
-            val isContained =newData.any { new ->
+            val isContained = newData.any { new ->
                 adapterCallback.areItemsTheSame(new, item)
             }
-            if (!isContained){
+            if (!isContained) {
                 sortlist.remove(item)
             }
         }
-        for(new in newData)
+        for (new in newData)
             sortlist.add(new)
         sortlist.endBatchedUpdates()
     }

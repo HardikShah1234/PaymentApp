@@ -9,9 +9,9 @@ import com.bunq.sdk.model.generated.endpoint.Payment
 class PaymentRepository {
 
     private val _setPayments = MutableLiveData<Set<Payment>>()
-    val setPayments : LiveData<Set<Payment>> = _setPayments
+    val setPayments: LiveData<Set<Payment>> = _setPayments
 
-    fun newPayments(vararg newPayments:Payment){
+    fun newPayments(vararg newPayments: Payment) {
         this._setPayments.postValue(newPayments.toSet())
     }
 }

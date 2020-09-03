@@ -11,7 +11,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("WrongConstant")
-fun View.snackbar(@StringRes stringId: Int, @BaseTransientBottomBar.Duration durationId: Int = BaseTransientBottomBar.LENGTH_INDEFINITE) =
+fun View.snackbar(
+    @StringRes stringId: Int,
+    @BaseTransientBottomBar.Duration durationId: Int = BaseTransientBottomBar.LENGTH_INDEFINITE
+) =
     Snackbar.make(this, this.resources.getString(stringId), durationId)
 
 inline fun LifecycleOwner.doActionAfterDelay(delayDuration: Long, crossinline action: () -> Unit) {

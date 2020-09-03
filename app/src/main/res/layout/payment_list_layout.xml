@@ -21,30 +21,31 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:src="@drawable/bunq_logo"/>
+                android:src="@drawable/bunq_logo"
+                android:visibility="visible" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ll_logo"
-            android:layout_marginLeft="30dp">
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/ll_logo">
 
             <TextView
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
-                android:textSize="@dimen/text_xlarge">
-            </TextView>
+                android:textSize="@dimen/text_xlarge"></TextView>
+
             <TextView
                 android:id="@+id/tv_alias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="@dimen/text_xlarge"
                 android:text="Alias"
-                android:textSize="@dimen/text_xlarge"
-                android:paddingStart="@dimen/text_xlarge"/>
+                android:textSize="@dimen/text_xlarge" />
 
         </LinearLayout>
     </RelativeLayout>
