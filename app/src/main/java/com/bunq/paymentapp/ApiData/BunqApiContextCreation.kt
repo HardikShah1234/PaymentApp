@@ -42,13 +42,15 @@ class BunqApiContextCreation {
             }
             return true
         }
-    //now let set the ApiContext here
+    /*now let set the ApiContext here.
+    From the documentation of Bunq sdk it is clear that after creating the Api Context it will create the session for the device.
+    If seesion is registered for particular IP then it works in every device?? IP will change with internet and Wifi.*/
 
     private val apiContext by lazy {
         fun CreateNewContext(): ApiContext {
             return ApiContext.create(
                 ApiEnvironmentType.SANDBOX,
-                Constants.API_KEY, "Android-Device"
+                Constants.API_KEY, "Android-device", "*"
             )
         }
         if (::sharedPreferences.isInitialized) {

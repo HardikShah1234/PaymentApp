@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,6 +6,26 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyViewTitle" parent="Widget.AppCompat.TextView">
+        <item name="android:autoSizeMaxTextSize" tools:targetApi="o">
+            @dimen/toolbar_title_text_size_max
+        </item>
+        <item name="android:autoSizeMinTextSize" tools:targetApi="o">
+            @dimen/toolbar_title_text_size_min
+        </item>
+        <item name="android:autoSizeTextType" tools:targetApi="o">uniform</item>
+        <item name="android:textSize">@dimen/toolbar_title_text_size_max</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/spacing_large</item>
+        <item name="android:layout_marginTop">@dimen/spacing_medium</item>
+    </style>
+
+    <style name="ImageViewRoundedCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/default_corner_radius</item>
     </style>
 
 </resources>

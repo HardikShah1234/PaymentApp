@@ -1,7 +1,9 @@
 package com.bunq.paymentapp
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +11,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
+/*This function is used for toast, snackbar to show in the app whereever is used for short duration.*/
 
 @SuppressLint("WrongConstant")
 fun View.snackbar(
@@ -23,3 +27,5 @@ inline fun LifecycleOwner.doActionAfterDelay(delayDuration: Long, crossinline ac
         action.invoke()
     }
 }
+
+fun Context.toast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()

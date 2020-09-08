@@ -3,20 +3,22 @@ package com.bunq.paymentapp.repository
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
 import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.bunq.paymentapp.R
 import com.bunq.paymentapp.UI.payment.PaymentSearchList
+import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.payment_list_layout.view.*
 
+
+/*Adapter class for the recycler view
+* Also set the position of sortList of the payment
+* This custom adapter is filterable used for search view*/
 class CustomAdapter(
     private val onItemClickListener: (Int) -> Unit,
     private val onAdapterIsEmptyListener: (Boolean) -> Unit
-) : RecyclerView.Adapter<CustomAdapter.ViewHolder>(), Filterable {
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     private val adapterCallback = object : SortedListAdapterCallback<PaymentSearchList>(this) {
         override fun areItemsTheSame(
@@ -37,37 +39,6 @@ class CustomAdapter(
             return oldItem == newItem
         }
 
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        var tv_price: TextView
-        var tv_alias: TextView
-
-        init {
-            tv_price = itemView.tv_price
-            tv_alias = itemView.tv_alias
-        }
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.payment_list_layout, parent, false)
-        return ViewHolder(itemView)
-    }
-
-    override fun getItemCount(): Int {
-        return sortlist.size().also { size -> onAdapterIsEmptyListener.invoke(size == 0) }
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val paymentSearchList = sortlist[position]
-        val payment = paymentSearchList.payment
-        holder.itemView.setOnClickListener { onItemClickListener.invoke(payment.id) }
-        val text = holder.itemView.context.getString(R.string.euro_currency, payment.amount.value)
-        holder.tv_price.text = text
-        holder.tv_alias.text = payment.counterpartyAlias.displayName
     }
 
     private val sortlist: SortedList<PaymentSearchList> =
@@ -91,7 +62,38 @@ class CustomAdapter(
         sortlist.endBatchedUpdates()
     }
 
-    override fun getFilter(): Filter {
-        TODO("Not yet implemented")
+    class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
+        LayoutContainer
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.payment_list_layout, parent, false)
+        )
     }
+
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.run {
+            itemView.run {
+                val paymentSearchList = sortlist[position]
+                val payment = paymentSearchList.payment
+
+                setOnClickListener {
+                    onItemClickListener.invoke(payment.id)
+                }
+
+                context.apply {
+                    payment.let {
+                        tv_price.text = getString(R.string.euro_currency, payment.amount.value)
+                        payment_alias.text = it.counterpartyAlias.displayName
+                        payment_status.text = it.subType
+                    }
+                }
+            }
+        }
+    }
+
+    override fun getItemCount() =
+        sortlist.size().also { size -> onAdapterIsEmptyListener.invoke(size == 0) }
+
 }

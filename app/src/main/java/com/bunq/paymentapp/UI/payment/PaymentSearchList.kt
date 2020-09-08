@@ -6,7 +6,7 @@ import java.util.*
 
 /** Payment Search List class contains the searchable list defined below**/
 
-class PaymentSearchList(val payment: Payment) {
+data class PaymentSearchList(val payment: Payment) {
 
     object Date {
         val formatter = SimpleDateFormat("YYYY-MM-DD hh:mm:ss.ssssss", Locale.GERMAN)
@@ -15,8 +15,8 @@ class PaymentSearchList(val payment: Payment) {
     val createdDate = Date.formatter.parse(payment.created)!!
 }
 
-fun Payment.contains(list: String, disregard: Boolean = false): Boolean {
-    val words = list.split("\\s+".toRegex())
+fun Payment.contains(query: String, disregard: Boolean = false): Boolean {
+    val words = query.split("\\s+".toRegex())
     for (word in words) {
         val SearchList = "${alias.displayName} ${alias.labelUser} ${alias.iban} ${alias.country}" +
                 "${counterpartyAlias.displayName} ${counterpartyAlias.labelUser} ${counterpartyAlias.iban} ${counterpartyAlias.country}" +

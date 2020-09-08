@@ -1,5 +1,6 @@
 package com.bunq.paymentapp.repository
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Outline
 import android.text.Editable
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.custom_search_view.view.*
 
 /**Custom Search View Implemented to search the payment details of user
  **/
-
+@SuppressLint("ClickableViewAccessibility")
 class CustomSearchView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     ConstraintLayout(
         context
@@ -33,12 +34,16 @@ class CustomSearchView(context: Context, attrs: AttributeSet?, defStyleAttr: Int
 
     private var onButtonStateChange: ((Boolean, Boolean) -> Unit)? = { isBlank, focus ->
         if (!isBlank) isClearable = true
+        else if (!focus) isClearable = false
+        else {
+            iv_search.isVisible = false
+        }
     }
 
     init {
 
         val Array = context.theme.obtainStyledAttributes(attrs, R.styleable.CustomSearchView, 0, 0)
-        val hint = Array.getDimension(R.styleable.CustomSearchView_hint, 0f)
+        val hint = Array.getString(R.styleable.CustomSearchView_hint)
         val elevation = Array.getDimension(R.styleable.CustomSearchView_elevation, 0f)
         Array.recycle()
 
