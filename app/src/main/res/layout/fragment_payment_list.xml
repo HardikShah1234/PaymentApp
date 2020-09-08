@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/fragment_payment_list_style"
+    tools:context=".UI.payment.PaymentListFragment">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        style="@style/MyViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="Payment List"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/frame_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_title">
+
+        <com.bunq.paymentapp.repository.CustomSearchView
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="16dp"
+            app:elevation="5dp"
+            app:hint="Search" />
+    </FrameLayout>
+
+    <View
+        android:id="@+id/toolbar_divider"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame_search_view" />
+
+    <FrameLayout
+        android:id="@+id/container_layout_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/spacing_medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_divider">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/payment_list_layout" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/payment_list_placeholder" />
+
+                    <include layout="@layout/payment_list_placeholder" />
+
+                    <include layout="@layout/payment_list_placeholder" />
+
+                    <include layout="@layout/payment_list_placeholder" />
+
+                    <include layout="@layout/payment_list_placeholder" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <LinearLayout
+            android:id="@+id/container_empty_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/list_items_empty_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Payments"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

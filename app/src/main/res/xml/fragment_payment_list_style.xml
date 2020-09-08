@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/collapsing_toolbar_collapsed"
+        app:constraintSetStart="@layout/fragment_payment_list"
+        app:duration="500">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/container_layout_list"
+            app:touchAnchorSide="top" />
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="0"
+                motion:framePosition="65"
+                motion:motionTarget="@id/frame_search_view" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/collapsing_toolbar_collapsed">
+
+        <Constraint
+            android:id="@+id/toolbar_title"
+            style="@style/MyViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--    todo: for some reason motion target's margin doesn't work, hence embedding it into a frame layout which we use as motion target-->
+        <Constraint
+            android:id="@+id/frame_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/toolbar_title" />
+
+        <!--    //todo remove-->
+        <Constraint
+            android:id="@+id/toolbar_divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_title" />
+
+    </ConstraintSet>
+
+
+</MotionScene>
